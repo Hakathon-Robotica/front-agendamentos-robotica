@@ -16,12 +16,6 @@ Sirva a pasta na raiz com um servidor estático (por exemplo, `npx serve .`) e a
 
 Os usuários são semeados apenas se a coleção ainda não existir. Sessão e dados permanecem no LocalStorage deste navegador. Autenticação e senhas são demonstrativas: esta base não deve ser usada para autenticação real nem dados sensíveis.
 
-## Inscrições e escolas
-
-A página pública de competições pode ser acessada pela tela de entrada. Os registros de competição publicados no armazenamento são exibidos com edital, categorias e estado da janela de inscrição. O formulário cria equipes na coleção compartilhada `registrations`, com integrantes e status inicial `pendente`. O painel de inscrições permite ao professor aprovar ou rejeitar registros das escolas relacionadas ao seu `schoolIds` ou à relação `schools[].teacherIds`. O acesso administrativo de escolas pode usar a mesma coleção `schools`.
-
-O módulo consome `EntityService` e `RegistrationService`; não cria mecanismo próprio de armazenamento ou login. Os limites são lidos dos campos de competição/categoria (`maxTeams`, `teamLimit`, `teamSizeMin`, `teamSizeMax`, `minAge`, `maxAge`, `grades` e aliases documentados no serviço). Se a branch de competições usar nomes de campo diferentes, alinhe os aliases em `src/js/services/registration-service.js`.
-
 ## Estrutura
 
 ```text
@@ -48,6 +42,4 @@ Eventos de navegação de painéis disparam `app:navigate` com o identificador d
 
 ## Limites da base
 
-O fluxo de inscrições valida janela de inscrição, capacidade da competição/categoria, integrantes mínimos e máximos, idade e escolaridade configuradas nos dados da competição. Professores só recebem e analisam inscrições de escolas vinculadas ao seu perfil. A interface pública usa o mesmo armazenamento local compartilhado, portanto os registros deste protótipo são locais ao navegador.
-
-Competições, avaliações e projetos continuam como áreas de integração sem regras de negócio neste módulo. A autorização no navegador serve apenas para o protótipo; um produto real precisa validar identidade, permissões, limites e persistência no servidor.
+Não há regras de negócio para competições, inscrições, avaliações ou projetos. A autorização visual de navegação é uma conveniência de interface; um produto real precisa de autenticação, autorização e persistência validadas no servidor.

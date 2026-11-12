@@ -1,5 +1,4 @@
-export function renderLogin(root, onLogin, onPublicCompetitions = () => {}) {
-  root.className = 'login-screen';
+export function renderLogin(root, onLogin) {
   root.innerHTML = `
     <div class="login-card">
       <a class="brand brand--login" href="#inicio" aria-label="Robótica Escolar">
@@ -12,7 +11,6 @@ export function renderLogin(root, onLogin, onPublicCompetitions = () => {}) {
         <label for="password">Senha</label><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Sua senha" required>
         <button class="button button--primary button--wide" type="submit">Entrar no sistema <span aria-hidden="true">→</span></button>
       </form>
-      <button id="public-competitions" class="public-entry" type="button">Ver competições abertas <span>→</span></button>
       <details class="demo-access"><summary>Acessos demonstrativos</summary>
         <div class="demo-list"><p><b>Administrador</b><span>admin@robotica.edu.br · admin123</span></p><p><b>Professor</b><span>professor@robotica.edu.br · prof123</span></p><p><b>Jurado</b><span>jurado@robotica.edu.br · jurado123</span></p></div>
       </details>
@@ -24,5 +22,4 @@ export function renderLogin(root, onLogin, onPublicCompetitions = () => {}) {
     const data = new FormData(event.currentTarget);
     onLogin(data.get('email'), data.get('password'));
   });
-  root.querySelector('#public-competitions').addEventListener('click', onPublicCompetitions);
 }
