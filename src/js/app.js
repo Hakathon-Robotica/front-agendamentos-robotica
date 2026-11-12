@@ -3,6 +3,7 @@ import { seedDemoData } from './data/seed.js';
 import { renderLogin } from './views/login.js';
 import { renderShell } from './views/shell.js';
 import { renderPage } from './views/pages.js';
+import { renderPublicCompetitions } from './views/registrations.js';
 import { showToast } from './utils/dom.js';
 
 const state = { user: null, page: 'inicio', menuOpen: false };
@@ -13,13 +14,17 @@ function render() {
   if (!state.user) {
     admin.hidden = true;
     login.hidden = false;
+    if (state.page === 'competicoes-publicas') {
+      renderPublicCompetitions(login, () => { state.page = 'inicio'; render(); });
+      return;
+    }
     renderLogin(login, async (email, password) => {
       const result = await AuthService.login(email, password);
       if (!result.ok) return showToast(result.message, 'error');
       state.user = result.user;
       state.page = 'inicio';
       render();
-    });
+    }, () => { state.page = 'competicoes-publicas'; render(); });
     return;
   }
   login.hidden = true;
