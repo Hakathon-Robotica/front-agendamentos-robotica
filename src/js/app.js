@@ -3,6 +3,7 @@ import { seedDemoData } from './data/seed.js';
 import { renderLogin } from './views/login.js';
 import { renderShell } from './views/shell.js';
 import { renderPage } from './views/pages.js';
+import { renderPublicCompetitions } from './views/registrations.js';
 import { showToast } from './utils/dom.js';
 
 const state = { user: null, page: 'inicio', menuOpen: false };
@@ -10,6 +11,12 @@ const state = { user: null, page: 'inicio', menuOpen: false };
 function render() {
   const login = document.querySelector('#login-screen');
   const admin = document.querySelector('#admin-screen');
+  if (state.page === 'competicoes-publicas') {
+    admin.hidden = true;
+    login.hidden = false;
+    renderPublicCompetitions(login, () => { state.page = 'inicio'; render(); });
+    return;
+  }
   if (!state.user) {
     admin.hidden = true;
     login.hidden = false;
@@ -19,7 +26,7 @@ function render() {
       state.user = result.user;
       state.page = 'inicio';
       render();
-    });
+    }, () => { state.page = 'competicoes-publicas'; render(); });
     return;
   }
   login.hidden = true;

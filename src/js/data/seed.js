@@ -9,7 +9,8 @@ const demoUsers = [
 
 /** Inicializa apenas as coleções ainda ausentes, preservando os dados do usuário. */
 export function seedDemoData() {
-  if (!StorageService.has('users')) StorageService.set('users', demoUsers);
+  const existingUsers = StorageService.get('users', null);
+  if (!StorageService.has('users') || Array.isArray(existingUsers) && existingUsers.length === 0) StorageService.set('users', demoUsers);
   if (!StorageService.has('competitions')) StorageService.set('competitions', []);
   if (!StorageService.has('registrations')) StorageService.set('registrations', []);
   if (!StorageService.has('evaluations')) StorageService.set('evaluations', []);

@@ -3,6 +3,7 @@ import { initials } from '../utils/format.js';
 import { escapeHTML } from '../utils/dom.js';
 
 const nav = [
+  { id: 'competicoes-publicas', label: 'Portal público', icon: '↗', roles: Object.values(ROLES) },
   { id: 'inicio', label: 'Visão geral', icon: '◫', roles: Object.values(ROLES) },
   { id: 'competicoes', label: 'Competições', icon: '◇', roles: [ROLES.ADMIN, ROLES.TEACHER] },
   { id: 'inscricoes', label: 'Inscrições', icon: '▤', roles: [ROLES.ADMIN, ROLES.TEACHER] },

@@ -3,6 +3,8 @@ import { EntityService } from '../services/entity-service.js';
 import { formatDate } from '../utils/format.js';
 import { escapeHTML } from '../utils/dom.js';
 import { renderCompetitions } from './competitions.js';
+import { renderRegistrationManagement } from './registrations.js';
+import { renderProjects } from './projects.js';
 
 const sections = {
   competicoes: { title: 'Competições', description: 'Acompanhe os eventos de robótica da sua organização.', eyebrow: 'EVENTOS', icon: '◇' },
@@ -14,6 +16,8 @@ const sections = {
 
 export function renderPage(root, page, user) {
   if (page === 'competicoes') { renderCompetitions(root, user); return; }
+  if (page === 'inscricoes') { renderRegistrationManagement(root, user); return; }
+  if (page === 'projetos') { renderProjects(root, user); return; }
   if (page !== 'inicio') return renderPlaceholder(root, page);
   const competitions = new EntityService('competitions').list();
   const projects = new EntityService('projects').list();
