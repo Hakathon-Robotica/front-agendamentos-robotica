@@ -1,5 +1,6 @@
 import { EntityService } from './entity-service.js';
 import { ROLES } from '../config.js';
+import { schoolIdsFor } from './school-service.js';
 
 const registrations = new EntityService('registrations');
 const schools = new EntityService('schools');
@@ -12,10 +13,6 @@ function numberFrom(value) {
   if (typeof value === 'number') return value;
   const match = String(value ?? '').match(/\d+/);
   return match ? Number(match[0]) : NaN;
-}
-
-function schoolBelongsToTeacher(school, teacherId) {
-  return Boolean(school && (school.teacherIds?.includes(teacherId) || school.teacherId === teacherId || school.professorId === teacherId));
 }
 
 function isNoticePublished(notice) {
@@ -46,7 +43,7 @@ function windowDate(value, endOfDay) {
   return new Date(value);
 }
 
-export function validateTeam(competition, team) {
+export function validateTeam(competition, team, { ignoreId = null } = {}) {
   const errors = [];
   if (!competition) return ['Competição não encontrada.'];
   if (!isRegistrationOpen(competition)) errors.push('As inscrições para esta competição estão encerradas.');
@@ -56,7 +53,9 @@ export function validateTeam(competition, team) {
   const maxMembers = Number(category?.maxMembers ?? category?.teamSizeMax ?? competition.maxMembers ?? competition.teamSizeMax ?? competition.maxTeamSize ?? 8);
   const members = Array.isArray(team.members) ? team.members : [];
   if (members.length < minMembers || members.length > maxMembers) errors.push(`A equipe deve ter entre ${minMembers} e ${maxMembers} integrantes.`);
-  const current = registrations.list().filter((item) => item.competitionId === competition.id && activeStatuses.has(item.status));
+  const current = registrations.list().filter((item) => item.id !== ignoreId && item.competitionId === competition.id && activeStatuses.has(item.status));
+  const teamName = team.teamName?.trim().toLocaleLowerCase('pt-BR');
+  if (teamName && current.some((item) => item.teamName?.trim().toLocaleLowerCase('pt-BR') === teamName)) errors.push('Já existe uma equipe com este nome nesta competição.');
   const competitionLimit = Number(competition.registrationLimit ?? competition.maxTeams ?? competition.teamLimit);
   if (Number.isFinite(competitionLimit) && current.length >= competitionLimit) errors.push('O limite de equipes desta competição foi atingido.');
   const categoryLimit = Number(category?.maxTeams ?? category?.teamLimit);
@@ -93,24 +92,54 @@ function ageOn(birthDate, today = new Date()) {
   return age;
 }
 
+/** Administradores gerenciam qualquer equipe; professores, apenas as das escolas vinculadas. */
+export function canManageSchool(user, schoolId) {
+  if (!user || !schoolId) return false;
+  if (user.role === ROLES.ADMIN) return true;
+  return user.role === ROLES.TEACHER && schoolIdsFor(user).includes(schoolId);
+}
+
+function withSchool(team) {
+  const school = schools.findById(team.schoolId);
+  return { ...team, schoolName: school?.name ?? team.schoolName, teacherId: team.teacherId ?? school?.teacherIds?.[0] ?? school?.teacherId ?? school?.professorId ?? null };
+}
+
 export const RegistrationService = Object.freeze({
   list: () => registrations.list(),
   listSchools: () => schools.list(),
   findById: (id) => registrations.findById(id),
-  create(competition, team) {
-    const errors = validateTeam(competition, team);
+  /** Sem `user`, a inscrição vem do portal público e fica pendente; equipes cadastradas pela escola já entram aprovadas. */
+  create(competition, team, user = null) {
+    if (user && !canManageSchool(user, team.schoolId)) return { ok: false, errors: ['Você não pode cadastrar equipes para esta escola.'] };
+    const data = withSchool(team);
+    const errors = validateTeam(competition, data);
     if (errors.length) return { ok: false, errors };
     const now = new Date().toISOString();
-    const record = { ...team, id: `reg-${globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`}`, competitionId: competition.id, status: 'pendente', createdAt: now, updatedAt: now };
+    const record = { ...data, id: `reg-${globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`}`, competitionId: competition.id, status: 'pendente', createdAt: now, updatedAt: now };
+    if (user) Object.assign(record, { createdBy: user.id, status: 'aprovado', reviewedBy: user.id, reviewedAt: now });
     registrations.create(record);
     return { ok: true, registration: record };
   },
+  update(id, team, user) {
+    const record = registrations.findById(id);
+    if (!record) return { ok: false, errors: ['Equipe não encontrada.'] };
+    if (!canManageSchool(user, record.schoolId) || !canManageSchool(user, team.schoolId)) return { ok: false, errors: ['Você não pode editar equipes desta escola.'] };
+    if (record.status === 'rejeitado') return { ok: false, errors: ['Inscrições rejeitadas não podem ser editadas.'] };
+    const competition = competitions.findById(record.competitionId);
+    const data = withSchool({ ...team, teacherId: team.schoolId === record.schoolId ? record.teacherId : undefined });
+    const errors = validateTeam(competition, { ...record, ...data }, { ignoreId: id });
+    if (errors.length) return { ok: false, errors };
+    return { ok: true, registration: registrations.update(id, { ...data, updatedBy: user.id, updatedAt: new Date().toISOString() }) };
+  },
+  remove(id, user) {
+    const record = registrations.findById(id);
+    if (!record) return { ok: false, message: 'Equipe não encontrada.' };
+    if (!canManageSchool(user, record.schoolId)) return { ok: false, message: 'Você não pode excluir equipes desta escola.' };
+    registrations.remove(id);
+    return { ok: true };
+  },
   forReviewer(user) {
-    const allowedSchools = new Set(user.role === ROLES.ADMIN ? registrations.list().map((item) => item.schoolId) : [
-      ...(user.schoolIds ?? []),
-      ...(user.schoolId ? [user.schoolId] : []),
-      ...schools.list().filter((school) => schoolBelongsToTeacher(school, user.id)).map((school) => school.id),
-    ]);
+    const allowedSchools = new Set(user.role === ROLES.ADMIN ? registrations.list().map((item) => item.schoolId) : schoolIdsFor(user));
     return registrations.list().filter((item) => allowedSchools.has(item.schoolId))
       .sort((a, b) => Number(b.status === 'pendente') - Number(a.status === 'pendente'));
   },
@@ -118,9 +147,7 @@ export const RegistrationService = Object.freeze({
     if (!['aprovado', 'rejeitado'].includes(decision)) return { ok: false, message: 'Decisão inválida.' };
     const record = registrations.findById(id);
     if (!record) return { ok: false, message: 'Inscrição não encontrada.' };
-    const school = schools.findById(record.schoolId);
-    const authorized = user.role === ROLES.ADMIN || user.role === ROLES.TEACHER && ((user.schoolIds ?? []).includes(record.schoolId) || user.schoolId === record.schoolId || schoolBelongsToTeacher(school, user.id));
-    if (!authorized) return { ok: false, message: 'Você não tem acesso às inscrições desta escola.' };
+    if (!canManageSchool(user, record.schoolId)) return { ok: false, message: 'Você não tem acesso às inscrições desta escola.' };
     if (record.status !== 'pendente') return { ok: false, message: 'Esta inscrição já foi analisada.' };
     const updated = registrations.update(id, { status: decision, reviewedBy: user.id, reviewedAt: new Date().toISOString(), reviewNote: note.trim(), updatedAt: new Date().toISOString() });
     return { ok: true, registration: updated };

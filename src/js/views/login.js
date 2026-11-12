@@ -3,9 +3,10 @@ export function renderLogin(root, onLogin, onPublicCompetitions = () => {}) {
   root.innerHTML = `
     <div class="login-card">
       <a class="brand brand--login" href="#inicio" aria-label="Robótica Escolar">
-        <span class="brand-mark" aria-hidden="true">R<span>.</span></span>
+        <img class="brand-logo" src="src/assets/logo-joinville.png" alt="Prefeitura de Joinville">
         <span class="brand-copy"><strong>Robótica</strong><small>GESTÃO ESCOLAR</small></span>
       </a>
+      <img class="login-photo" src="src/assets/images.jpg" alt="Estudantes com robô em pista de competição">
       <div class="login-heading"><p class="eyebrow">PORTAL DA ORGANIZAÇÃO</p><h1>Bem-vindo de volta</h1><p>Acesse seu espaço de trabalho.</p></div>
       <form id="login-form" class="login-form">
         <label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="username" placeholder="voce@escola.edu.br" required>
@@ -14,7 +15,7 @@ export function renderLogin(root, onLogin, onPublicCompetitions = () => {}) {
       </form>
       <button id="public-competitions" class="public-entry" type="button">Ver competições abertas <span>→</span></button>
       <details class="demo-access"><summary>Acessos demonstrativos</summary>
-        <div class="demo-list"><p><b>Administrador</b><span>admin@robotica.edu.br · admin123</span></p><p><b>Professor</b><span>professor@robotica.edu.br · prof123</span></p><p><b>Jurado</b><span>jurado@robotica.edu.br · jurado123</span></p></div>
+        <div class="demo-list"><p><b>Administrador</b><span>admin@robotica.edu.br · admin123</span></p><p><b>Professor</b><span>professor@robotica.edu.br · prof123</span></p><p><b>Professora (outras escolas)</b><span>beatriz@robotica.edu.br · prof123</span></p><p><b>Jurado</b><span>jurado@robotica.edu.br · jurado123</span></p><p><b>Jurados (banca)</b><span>rafael@ / lucia@robotica.edu.br · jurado123</span></p></div>
       </details>
       <p class="login-footnote">Ambiente demonstrativo · dados armazenados neste navegador</p>
     </div>

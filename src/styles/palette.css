@@ -59,7 +59,8 @@
 /* Aplicação consistente do tema azul nos componentes herdados da base. */
 :root { --purple: #3478d4; --sidebar: #1c2d45; }
 .sidebar { background: #1c2d45; }
-.login-aside { background: linear-gradient(145deg, #173458, #234976 55%, #2863a2); }
+.login-aside { background: linear-gradient(145deg, #173458f2, #234976cc 55%, #2863a299), url("../assets/images.jpg") center / cover no-repeat; }
+.login-photo { display: none; }
 .login-aside .aside-kicker { color: #b9d5f5; }
 .login-aside .aside-content > p, .login-aside .aside-stats span,
 .login-aside .aside-footer { color: #b8c9de; }
@@ -96,3 +97,7 @@
   .button--primary,
   .nav-link.is-active { transition: background-color .15s ease, box-shadow .15s ease; }
 }
+
+.brand-logo { height: 52px; width: auto; flex: none; object-fit: contain; background: #fff; border-radius: 8px; padding: 4px 6px; }
+.brand--login .brand-logo { height: 76px; padding: 0; }
+.public-header .brand-logo { height: 54px; padding: 0; }

@@ -1,0 +1,96 @@
+/* Ajustes para smartphones. Carregado por último para prevalecer sobre os estilos de cada módulo. */
+.sidebar-backdrop{display:none}
+body:has(.competition-backdrop,.project-backdrop){overflow:hidden}
+
+@media (max-width:700px){
+  html{-webkit-text-size-adjust:100%}
+  button,a{-webkit-tap-highlight-color:transparent}
+
+  /* Navegação: menu lateral com fundo escurecido e topo fixo */
+  .sidebar{z-index:12;padding-top:calc(24px + env(safe-area-inset-top));padding-bottom:calc(16px + env(safe-area-inset-bottom));overflow-y:auto}
+  .sidebar-backdrop{display:block;position:fixed;inset:0;z-index:11;border:0;padding:0;background:#1a1d2e66;animation:backdrop-in .2s}
+  .sidebar-backdrop[hidden]{display:none}
+  body:has(.sidebar--open){overflow:hidden}
+  .nav-link{min-height:46px}
+  .topbar{position:sticky;top:0;z-index:10;padding-top:env(safe-area-inset-top);height:calc(60px + env(safe-area-inset-top))}
+  .menu-toggle{width:42px;height:42px;place-content:center;margin-left:-10px}
+  .breadcrumbs{min-width:0;margin-left:6px}
+  .breadcrumbs>span,.breadcrumbs>b{display:none}
+  .breadcrumbs strong{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .icon-button,.profile-button{min-width:42px;min-height:42px;justify-content:center}
+  .main-content{padding:20px 16px calc(32px + env(safe-area-inset-bottom))}
+  .toast-region{left:12px;right:12px;top:auto;bottom:calc(14px + env(safe-area-inset-bottom))}
+  .toast{font-size:13px;text-align:center}
+
+  /* Campos com 16px evitam o zoom automático do iOS ao focar */
+  input:not([type=checkbox]):not([type=radio]):not([type=hidden]),select,textarea{font-size:16px!important}
+  input:not([type=checkbox]):not([type=radio]):not([type=hidden]),select{min-height:44px}
+  .login-photo{display:block;width:100%;height:160px;object-fit:cover;border-radius:12px;margin:0 0 24px}
+  .brand--login{margin-bottom:24px}
+  .login-form label,.team-form label,.competition-form label,.review-form>label,.project-form label{font-size:12px}
+
+  /* Cabeçalhos e leitura */
+  .page-heading{align-items:flex-start;gap:12px;margin-bottom:18px}
+  .page-heading-icon{flex:none;width:40px;height:40px;font-size:19px}
+  .eyebrow{font-size:10px}
+  .form-hint{font-size:12px}
+
+  /* Diálogos viram "bottom sheets" com cabeçalho e ações sempre visíveis */
+  .competition-backdrop,.project-backdrop{padding:0;place-items:end stretch;align-items:end}
+  .competition-dialog,.project-dialog{width:100%;max-height:92dvh;border-radius:18px 18px 0 0;padding:0 16px;animation:sheet-in .22s ease-out}
+  .competition-dialog>.dialog-heading,.project-dialog>.dialog-heading{position:sticky;top:0;z-index:2;background:#fff;margin:0 -16px 12px;padding:18px 16px 12px;border-bottom:1px solid #f0f1f5}
+  .dialog-close{width:42px;height:42px;flex:none}
+  .dialog-actions{position:sticky;bottom:0;z-index:2;background:#fff;margin:4px -16px 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+  .dialog-actions .button{flex:1;height:46px;font-size:14px}
+  .competition-dialog>.form-hint,.competition-dialog>form>.form-hint{padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+
+  /* Equipes e inscrições */
+  .team-toolbar .button{height:44px;font-size:13px}
+  .approval-card{padding:16px}
+  .pending-tag,.open-tag,.closed-tag{white-space:nowrap;flex:none}
+  .button--wide{height:48px;font-size:14px}
+  .approval-heading{gap:10px}
+  .approval-meta span{font-size:12px}
+  .approval-meta b{font-size:9px}
+  .approval-members>strong{font-size:12px}
+  .approval-members>div>span{font-size:13px}
+  .approval-members small{font-size:11px}
+  .review-actions .button,.team-card-actions .button{flex:1;height:44px;font-size:13px}
+  .team-card-actions .icon-danger,.competition-actions .icon-danger{min-height:44px;padding:0 14px;font-size:12px}
+  .members-heading strong{font-size:13px}
+  .text-link,[data-add-member]{min-height:42px;font-size:13px}
+  .member-field{padding:12px}
+  .member-field-title{font-size:12px}
+  .remove-member{min-height:36px;padding:0 10px;font-size:12px}
+  .form-errors{font-size:12px}
+  .team-form>.button,.public-register-button{height:48px;font-size:14px}
+
+  /* Competições e projetos */
+  .competition-actions .button{height:42px;font-size:12px}
+  .competition-tab,.project-tab{min-height:42px}
+  .competition-form .category-picker-option{font-size:13px;min-height:40px;gap:10px}
+  .competition-form .category-picker-option input{width:20px;height:20px;min-height:0}
+
+  /* Portal público */
+  .public-header{position:sticky;top:0;z-index:5;padding-top:env(safe-area-inset-top);height:calc(60px + env(safe-area-inset-top))}
+  .public-header .button{height:40px;font-size:12px;padding:0 12px}
+  .public-event-card>p,.public-event-facts,.details-content{font-size:12px}
+  .competition-details summary{font-size:12px;min-height:36px;display:flex;align-items:center}
+}
+
+@media (max-width:480px){
+  .form-row,.member-input-row,.project-form .form-row{grid-template-columns:1fr}
+  .public-header .brand-copy small{display:none}
+}
+
+@media (max-width:360px){
+  .metric-grid,.approval-meta{grid-template-columns:1fr}
+  .public-header .brand-copy{display:none}
+  .main-content{padding-left:12px;padding-right:12px}
+}
+
+@keyframes backdrop-in{from{opacity:0}to{opacity:1}}
+@keyframes sheet-in{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.sidebar,.sidebar-backdrop,.competition-dialog,.project-dialog{transition:none;animation:none}}
+
+@media (max-width:700px){.brand--login .brand-logo{height:60px}.public-header .brand-logo{height:44px}}

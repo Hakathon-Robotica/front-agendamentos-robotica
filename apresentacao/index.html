@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Robótica Escolar — Apresentação</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <main class="deck" aria-live="polite">
+
+    <!-- 1. Capa -->
+    <section class="slide slide--cover" data-title="Capa">
+      <div class="cover-bg" aria-hidden="true"></div>
+      <div class="cover-content">
+        <img class="cover-logo reveal" src="img/logo-joinville.png" alt="Prefeitura de Joinville">
+        <p class="kicker reveal">Hackathon · Prefeitura de Joinville</p>
+        <h1 class="reveal">Robótica Escolar</h1>
+        <p class="lead reveal">Gestão de competições, equipes e avaliações em uma única plataforma.</p>
+        <p class="hint reveal">Use <kbd>←</kbd> <kbd>→</kbd> ou deslize para navegar</p>
+      </div>
+    </section>
+
+    <!-- 2. Problema -->
+    <section class="slide" data-title="O problema">
+      <div class="slide-inner">
+        <p class="kicker reveal">O desafio</p>
+        <h2 class="reveal">Organizar competições escolares ainda dá muito trabalho</h2>
+        <div class="grid grid--3">
+          <article class="card reveal"><span class="card-icon">📄</span><h3>Inscrições soltas</h3><p>Fichas, planilhas e e-mails espalhados entre escolas e organização.</p></article>
+          <article class="card reveal"><span class="card-icon">⏳</span><h3>Aprovação manual</h3><p>Professores e organização sem visão clara do que está pendente.</p></article>
+          <article class="card reveal"><span class="card-icon">🧮</span><h3>Notas no papel</h3><p>Jurados anotam à mão e a classificação é calculada depois, com risco de erro.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Solução -->
+    <section class="slide" data-title="A solução">
+      <div class="slide-inner split">
+        <div>
+          <p class="kicker reveal">A solução</p>
+          <h2 class="reveal">Uma plataforma web para todo o ciclo da competição</h2>
+          <ul class="checks">
+            <li class="reveal">Portal público com editais e inscrições abertas</li>
+            <li class="reveal">Cadastro de escolas, equipes e integrantes</li>
+            <li class="reveal">Aprovação de equipes pelos professores</li>
+            <li class="reveal">Notas dos jurados por critério e classificação automática</li>
+            <li class="reveal">Funciona no computador e no celular</li>
+          </ul>
+        </div>
+        <figure class="shot reveal"><img src="img/dashboard.png" alt="Visão geral do painel administrativo"></figure>
+      </div>
+    </section>
+
+    <!-- 4. Perfis -->
+    <section class="slide" data-title="Perfis">
+      <div class="slide-inner">
+        <p class="kicker reveal">Quem usa</p>
+        <h2 class="reveal">Três perfis, cada um com o que precisa</h2>
+        <div class="grid grid--3">
+          <article class="card card--role reveal"><span class="role-badge">A</span><h3>Administrador</h3><p>Cria competições, editais e categorias, gerencia escolas e acompanha a classificação.</p></article>
+          <article class="card card--role reveal"><span class="role-badge">P</span><h3>Professor</h3><p>Cadastra equipes das suas escolas e aprova ou rejeita inscrições recebidas.</p></article>
+          <article class="card card--role reveal"><span class="role-badge">J</span><h3>Jurado</h3><p>Avalia as equipes aprovadas em todas as categorias, com notas de 0 a 10.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Fluxo -->
+    <section class="slide" data-title="Fluxo">
+      <div class="slide-inner">
+        <p class="kicker reveal">Como funciona</p>
+        <h2 class="reveal">Do edital ao pódio</h2>
+        <ol class="flow">
+          <li class="reveal"><span>1</span><strong>Edital</strong><small>Admin publica a competição e as categorias</small></li>
+          <li class="reveal"><span>2</span><strong>Inscrição</strong><small>Escolas inscrevem equipes pelo portal</small></li>
+          <li class="reveal"><span>3</span><strong>Aprovação</strong><small>Professor valida integrantes e aprova</small></li>
+          <li class="reveal"><span>4</span><strong>Avaliação</strong><small>Jurados lançam notas por critério</small></li>
+          <li class="reveal"><span>5</span><strong>Classificação</strong><small>Ranking calculado automaticamente</small></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 6. Competições -->
+    <section class="slide" data-title="Competições">
+      <div class="slide-inner split split--wide">
+        <div>
+          <p class="kicker reveal">Administração</p>
+          <h2 class="reveal">Competições, editais e categorias</h2>
+          <p class="reveal">Cada competição tem período do evento, local, janela de inscrições, limite de vagas e as 7 categorias oficiais.</p>
+          <div class="tags reveal"><span>Robótica Lego</span><span>Atto Micro:bit</span><span>Seguidor de Linha</span><span>Tecnologia Educacional</span><span>ArtBot Júnior</span><span>ArtBot Expert</span><span>Estoura Balão</span></div>
+        </div>
+        <figure class="shot reveal"><img src="img/competicoes.png" alt="Tela de competições"></figure>
+      </div>
+    </section>
+
+    <!-- 7. Equipes -->
+    <section class="slide" data-title="Equipes">
+      <div class="slide-inner split split--wide">
+        <div>
+          <p class="kicker reveal">Professores</p>
+          <h2 class="reveal">Cadastro e aprovação de equipes</h2>
+          <ul class="checks">
+            <li class="reveal">Integrantes com ano escolar e data de nascimento</li>
+            <li class="reveal">Validação de mínimo e máximo por categoria</li>
+            <li class="reveal">Aprovar ou rejeitar com observação para a equipe</li>
+          </ul>
+        </div>
+        <div class="stack reveal">
+          <figure class="shot"><img src="img/inscricoes.png" alt="Lista de inscrições pendentes"></figure>
+          <figure class="shot shot--float"><img src="img/equipe-form.png" alt="Formulário de cadastro de equipe"></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Portal público -->
+    <section class="slide" data-title="Portal público">
+      <div class="slide-inner split split--wide">
+        <div>
+          <p class="kicker reveal">Comunidade</p>
+          <h2 class="reveal">Portal público de inscrições</h2>
+          <p class="reveal">Escolas consultam os editais publicados e inscrevem equipes sem precisar de login. A inscrição chega pendente para o professor responsável.</p>
+        </div>
+        <figure class="shot reveal"><img src="img/publico.png" alt="Portal público de competições"></figure>
+      </div>
+    </section>
+
+    <!-- 9. Notas -->
+    <section class="slide" data-title="Notas dos jurados">
+      <div class="slide-inner split split--wide">
+        <div>
+          <p class="kicker reveal">Julgamento</p>
+          <h2 class="reveal">Notas dos jurados</h2>
+          <div class="criteria">
+            <div class="reveal"><strong>Desempenho</strong><small>Resultado do robô na prova</small></div>
+            <div class="reveal"><strong>Projeto e inovação</strong><small>Criatividade e solução técnica</small></div>
+            <div class="reveal"><strong>Apresentação</strong><small>Clareza ao explicar o projeto</small></div>
+            <div class="reveal"><strong>Trabalho em equipe</strong><small>Participação de todos</small></div>
+          </div>
+          <p class="reveal note">Notas de 0 a 10 por critério · média calculada na hora · uma avaliação por jurado e equipe</p>
+        </div>
+        <figure class="shot reveal"><img src="img/avaliar.png" alt="Formulário de avaliação de equipe"></figure>
+      </div>
+    </section>
+
+    <!-- 10. Ranking -->
+    <section class="slide" data-title="Classificação">
+      <div class="slide-inner split split--wide">
+        <div>
+          <p class="kicker reveal">Resultado</p>
+          <h2 class="reveal">Classificação automática</h2>
+          <p class="reveal">A organização acompanha, por categoria, a média final de cada equipe, as médias por critério e quantos jurados já avaliaram.</p>
+          <div class="podium reveal" aria-hidden="true">
+            <div class="podium-2"><b>2º</b><span>8,38</span></div>
+            <div class="podium-1"><b>1º</b><span>9,54</span></div>
+            <div class="podium-3"><b>3º</b><span>7,94</span></div>
+          </div>
+        </div>
+        <figure class="shot reveal"><img src="img/ranking.png" alt="Classificação das equipes"></figure>
+      </div>
+    </section>
+
+    <!-- 11. Mobile -->
+    <section class="slide slide--centered" data-title="Celular">
+      <div class="slide-inner">
+        <p class="kicker reveal">Responsivo</p>
+        <h2 class="reveal">Pensado também para o celular</h2>
+        <p class="reveal center">Jurados avaliam na beira da arena; professores aprovam equipes de qualquer lugar.</p>
+        <div class="phones">
+          <figure class="phone reveal"><img src="img/mobile-login.png" alt="Login no celular"></figure>
+          <figure class="phone phone--main reveal"><img src="img/mobile-avaliacoes.png" alt="Avaliações no celular"></figure>
+          <figure class="phone reveal"><img src="img/mobile-dashboard.png" alt="Painel no celular"></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Números -->
+    <section class="slide slide--dark" data-title="Demonstração">
+      <div class="slide-inner">
+        <p class="kicker reveal">Dados da demonstração</p>
+        <h2 class="reveal">Um cenário real para testar</h2>
+        <div class="stats">
+          <div class="stat reveal"><b data-count="3">0</b><span>competições</span></div>
+          <div class="stat reveal"><b data-count="7">0</b><span>categorias</span></div>
+          <div class="stat reveal"><b data-count="49">0</b><span>equipes inscritas</span></div>
+          <div class="stat reveal"><b data-count="10">0</b><span>aguardando aprovação</span></div>
+          <div class="stat reveal"><b data-count="62">0</b><span>avaliações lançadas</span></div>
+        </div>
+        <div class="grid grid--3 compact">
+          <article class="card reveal"><span class="status status--live">Em andamento</span><h3>Copa Joinville de Robótica 2026</h3><p>21 equipes · 3 jurados avaliando</p></article>
+          <article class="card reveal"><span class="status status--live">Em andamento</span><h3>Festival Estudantil de Tecnologia</h3><p>14 equipes · avaliação parcial</p></article>
+          <article class="card reveal"><span class="status status--open">Inscrições abertas</span><h3>Torneio de Inverno de Robótica 2027</h3><p>Equipes aguardando os professores</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Tecnologia -->
+    <section class="slide" data-title="Tecnologia">
+      <div class="slide-inner split">
+        <div>
+          <p class="kicker reveal">Por dentro</p>
+          <h2 class="reveal">Simples de rodar e evoluir</h2>
+          <ul class="checks">
+            <li class="reveal">HTML, CSS e JavaScript puros com ES Modules</li>
+            <li class="reveal">Sem build: basta um servidor estático</li>
+            <li class="reveal">Dados no LocalStorage, prontos para trocar por uma API</li>
+            <li class="reveal">Regras de negócio isoladas em serviços</li>
+          </ul>
+        </div>
+        <div class="layers reveal">
+          <div><b>views/</b><span>Telas e diálogos</span></div>
+          <div><b>services/</b><span>Regras: inscrições, avaliações, escolas</span></div>
+          <div><b>data/</b><span>Seeds e dados de demonstração</span></div>
+          <div><b>storage</b><span>LocalStorage (futuro: API REST)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. Próximos passos -->
+    <section class="slide" data-title="Próximos passos">
+      <div class="slide-inner">
+        <p class="kicker reveal">Roadmap</p>
+        <h2 class="reveal">Próximos passos</h2>
+        <div class="grid grid--4">
+          <article class="card reveal"><span class="card-icon">🔌</span><h3>Back-end e API</h3><p>Banco de dados central e acesso simultâneo.</p></article>
+          <article class="card reveal"><span class="card-icon">🔐</span><h3>Login seguro</h3><p>Autenticação real integrada à rede municipal.</p></article>
+          <article class="card reveal"><span class="card-icon">📊</span><h3>Relatórios</h3><p>Exportar resultados e certificados em PDF.</p></article>
+          <article class="card reveal"><span class="card-icon">🔔</span><h3>Notificações</h3><p>Avisos de aprovação e resultados por e-mail.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. Encerramento -->
+    <section class="slide slide--cover" data-title="Obrigado">
+      <div class="cover-bg" aria-hidden="true"></div>
+      <div class="cover-content">
+        <img class="cover-logo reveal" src="img/logo-joinville.png" alt="Prefeitura de Joinville">
+        <h1 class="reveal">Obrigado!</h1>
+        <p class="lead reveal">Experimente a demonstração:</p>
+        <div class="logins reveal">
+          <div><b>Admin</b><code>admin@robotica.edu.br</code><code>admin123</code></div>
+          <div><b>Professor</b><code>professor@robotica.edu.br</code><code>prof123</code></div>
+          <div><b>Jurado</b><code>jurado@robotica.edu.br</code><code>jurado123</code></div>
+        </div>
+        <a class="cta reveal" href="../index.html">Abrir o sistema →</a>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="controls" aria-label="Navegação dos slides">
+    <button type="button" data-nav="prev" aria-label="Slide anterior">←</button>
+    <span class="counter"><b>1</b> / <i>1</i></span>
+    <button type="button" data-nav="next" aria-label="Próximo slide">→</button>
+    <button type="button" data-nav="full" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
+  </nav>
+  <div class="dots" aria-hidden="true"></div>
+
+  <div class="lightbox" hidden><img alt=""></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

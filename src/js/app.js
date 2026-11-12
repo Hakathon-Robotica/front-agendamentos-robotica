@@ -48,4 +48,10 @@ function logout() { AuthService.logout(); state.user = null; state.menuOpen = fa
 seedDemoData();
 state.user = AuthService.getCurrentUser();
 document.addEventListener('app:navigate', (event) => navigate(event.detail));
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+  const dialogClose = document.querySelector('.competition-backdrop .dialog-close, .project-backdrop .dialog-close');
+  if (dialogClose) dialogClose.click();
+  else if (state.menuOpen) toggleMenu();
+});
 render();
